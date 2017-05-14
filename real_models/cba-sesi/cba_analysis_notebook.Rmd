@@ -1,0 +1,185 @@
+---
+title: "AnÃ¡lise CBR - ProtÃ³tipo"
+output:
+  html_document: default
+  html_notebook: default
+  pdf_document: default
+  word_document: default
+---
+
+Protótipo da Análise de CBA probabilística.
+Vamos carregar as funções de CBA do arquivo cba.R, e o pacote para estimar uma distribuição dos dados simulados.
+
+
+```{r}
+# Análise de Custo Benefício
+
+library(fitdistrplus)
+
+# Carregando arquivos com Funções
+source("financial_functions.R")
+source("cba.R")
+
+```
+
+Agora vamos definir o período de análise e chamar a função para calculo do CBA.
+
+Vamos definir um custo e benefício normalmente distribuído ano a ano, com médias e desvios padrão abaixo. Vamos replicar esta função 100 vezes e salvar os resultados
+
+```{r}
+## Primeiro teste para rodar uma análise de custo benefício probabilística
+
+### Parâmetros para Rodar a Análise 
+
+#Número de Períodos a Analisar e Ano Inicial
+n = 10
+initial_year = 2017
+
+### Rodando a Análise CBA 200 vezes
+cba_replications = replicate(n=100,
+                             cba_analysis(mean_cost=30,
+                                          sd_cost=5, 
+                                          mean_benefit=30, 
+                                          sd_benefit=10)
+                             )
+```
+
+Agora vamos separar as replicações em vetores específicos
+
+```{r}
+# Separando os resultados em vetores diferentes
+# vendo o VPL
+vpl = cba_replications[1,]
+
+# retornando o CBR
+cbr = cba_replications[2,]
+
+# retornando o ROI
+roi = cba_replications[3,]
+```
+
+Cada um dos itens do vetor possui o resultado de uma simulação específica do VPL, CBR e ROI respectivamente.
+
+Esse são os dados do VPL...
+
+
+```{r}
+vpl
+```
+
+Esse são os dados do ROI...
+
+
+```{r}
+roi
+```
+
+Esse são os dados do CBR...
+
+
+```{r}
+cbr
+```
+
+
+
+Agora vamos ver um histograma destas três variáveis simuladas com os dados...
+VPL...
+
+```{r}
+
+# Ajustando o Gráfico para 3 imagens:
+# par(mfrow=c(1,3))
+# Vendo a Distribuição do VPL
+hist(vpl,main="Distribuição do VPL")
+
+```
+
+CBR...
+```{r}
+
+
+# Vendo a Distribuição do CBR
+hist(cbr,main="Distribuição do CBR")
+
+```
+
+
+ROI...
+```{r}
+
+
+# Vendo a Distribuição do CBR
+hist(roi,main="Distribuição do ROI")
+
+```
+
+
+
+Assumindo que estes dados tem uma distribuição normal, vamos estimar agora os índices.
+
+```{r}
+# Ajustando o CBA para uma distribuição normal
+cbr_fit = fitdist(cbr,"norm")
+roi_fit = fitdist(roi,"norm")
+vpl_fit = fitdist(vpl,"norm")
+```
+
+Vamos estimar o CBR!
+
+```{r}
+# Estimando o CBR
+
+cbr_medio = as.numeric(cbr_fit$estimate[["mean"]])
+cbr_medio = round(cbr_medio, digits=2)
+
+cat("Para cada 1 real investido em SST, retornam em média ", cbr_medio, " Reais.")
+```
+
+Podemos calcular um intervalo de confiança!
+
+```{r}
+
+confint(cbr_fit)
+
+```
+
+
+Vamos estimar o ROI!
+
+```{r}
+# Estimando o ROI
+roi_medio = as.numeric(roi_fit$estimate[["mean"]])*100
+roi_medio = round(roi_medio,digits = 2)
+
+cat("O retorno sobre investimento esperado é de ", roi_medio, " %.")
+```
+
+Podemos calcular um intervalo de confiança!
+
+```{r}
+
+confint(roi_fit)
+
+```
+
+Vamos estimar o VPL!
+
+```{r}
+
+# Informando o VPL
+vpl_medio = as.numeric(vpl_fit$estimate[["mean"]])
+vpl_medio = round(vpl_medio,digits = 2)
+
+cat("O Valor Presente Líquido do Investimento esperado é ", vpl_medio, " Reais.")
+```
+
+Podemos calcular um intervalo de confiança!
+
+```{r}
+
+confint(vpl_fit)
+
+```
+
+Feito, temos um protótipio de análise probabilística do CBA!

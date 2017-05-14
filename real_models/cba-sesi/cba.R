@@ -1,25 +1,9 @@
 
-library(fitdistrplus)
 ### Pedro Nascimento de Lima
-## Primeiro teste para rodar uma análise de custo benefício probabilística
-
-### Parâmetros para Rodar a Análise 
-
-#Número de Períodos a Analisar e Ano Inicial
-n = 10
-initial_year = 2017
+### Arquivo com a Função de Análise CBA
 
 
-# Financial Indexes Functions:
-
-cbr = function(costs, benefits) {
-  return(benefits/costs)
-}
-
-roi = function(costs, benefits) {
-  return((benefits - costs)/costs)
-}
-
+### Função CBA ANALYSIS ####
 cba_analysis = function(mean_cost, sd_cost, mean_benefit, sd_benefit) {
   
 
@@ -70,26 +54,12 @@ roi = roi(costs = costs,benefits = benefits)
 # Vetor de Resultados
 cba_results_vector = c(vpl,cbr,roi)
 
+cba_results_array = array(data=c(cba_results_vector),dim=c(1,3))
+# rownames(cba_array) = row_names
+colnames(cba_results_array) = c("VPL", "CBR", "ROI")
+
+
 # Aqui estou apenas retornando o custo benefício
-return(cbr)
+return(cba_results_vector)
 }
 
-# Vamos retornar as replicações
-cba_replications = replicate(n=200,
-                             cba_analysis(mean_cost=11, sd_cost=2, mean_benefit=12, sd_benefit=1))
-
-# Vamos ver as replicações
-hist(cba_replications)
-
-
-# Ajustando os dados gerados para uma distribuição normal
-cba_fit = fitdist(cba_replications,"norm")
-
-# Estimando o CBR
-cba_fit[1]
-
-# Mostrando o Intervalo de Confiança do CBR..
-confint(cba_fit)
-
-# Mostrando os resultados do Ajuste à distribuição Normal
-plot(cba_fit)

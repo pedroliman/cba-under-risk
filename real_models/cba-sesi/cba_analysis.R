@@ -3,9 +3,15 @@
 
 library(fitdistrplus)
 
+
 # Carregando arquivos com Funções
 source("financial_functions.R")
 source("cba.R")
+source("data_import.R")
+
+### TODO: Importar aqui
+dados = import_data("Dados.xlsx")
+dados
 
 ## Primeiro teste para rodar uma análise de custo benefício probabilística
 

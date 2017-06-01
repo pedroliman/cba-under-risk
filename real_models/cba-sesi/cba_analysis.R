@@ -3,6 +3,7 @@
 
 library(fitdistrplus)
 
+set.seed(1500)
 
 # Carregando arquivos com Funções
 source("financial_functions.R")

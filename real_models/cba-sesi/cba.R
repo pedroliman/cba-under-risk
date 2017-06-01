@@ -8,7 +8,7 @@ cba_analysis = function(mean_cost, sd_cost, mean_benefit, sd_benefit) {
   
 
 # Criando um Vetor de Anos para os Investimentos
-years_vector = seq(from=initial_year, to=initial_year+n-1, by=1)
+years_vector = initial_year:initial_year+n-1
 
 # Criando o vetor de custos
 costs_vector = c()
@@ -16,7 +16,6 @@ costs_vector = c()
 for(i in 1:n) {
   costs_vector[i]=rnorm(n=1,mean=mean_cost,sd=sd_cost)
 }
-
 
 # Criando o vetor de Benefícios
 benefits_vector = c()

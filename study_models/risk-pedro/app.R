@@ -27,11 +27,11 @@ ui <- fluidPage(
                           helpText(texto_de_ajuda),
                           sliderInput(inputId = "producao", 
                                       label = "Escolha o Quanto Produzir", 
-                                      value = 200, min = 0, max = 500),
+                                      value = carregar_input(), min = 0, max = 500),
                           sliderInput(inputId = "custoFixo", 
                                       label = "Escolha seu Nivel de custo fixo", 
-                                      value = 1000, min = 600, max = 1400)
-                          #actionButton("simular", "Simular!")
+                                      value = 1000, min = 600, max = 1400),
+                          actionButton("usar_parametro_do_arquivo", "Usar Parametro!")
                         ),
                         
                         # Show a plot of the generated distribution
@@ -60,6 +60,12 @@ server <- function(input, output) {
 # O que roda aqui roda uma vez por ario final.
 # deveria colocar aqui o codigo que deve ser para cada usuario
 
+  carregar_input = observeEvent(output$usar_parametro_do_arquivo,
+                                  {
+                                    # Carregar arquivo de dados
+                                    return(300)
+                                  })
+  
   # Uma funcao reativa para os dados
   dados_simulados = reactive(
   {

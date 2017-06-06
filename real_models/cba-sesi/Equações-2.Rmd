@@ -1,0 +1,43 @@
+---
+title: "Equações 2 - Teste"
+author: "Pedro Nascimento de Lima"
+date: "6 de junho de 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Este documento contém uma definição do modelo matemático que suporta a calculadora de custos e benefícios de inciativas em SST.
+
+## CBR - Razão Benefício-Custo
+A razão benefício-custo $\alpha$ corresponde à razão do somatório dos custos $C_i$ onde $i$ representa o índice de custos e $B_j$ os benefícios a valor presente.
+
+$$\alpha = \frac{\sum_{i=1}^{I} B_{i}} {\sum_{j=1}^{J} C_{j}}$$
+
+### Fluxo de Caixa em Valor Presente
+Os fluxos de caixa devem ser ajustados a valor presente utilizando-se uma taxa de atratividade $\theta$ definida pelo usuário do modelo. Tal taxa será utilizada para trazer os valores de fluxo de caixa a valor presente.
+
+$$B_i(t) = \frac{b_i}{(1+\theta)^t}$$
+
+
+### Calculo dos Benefícios
+Em todos os casos, o benefício será calculado a partir da diferença em valores monetários de uma variável financeira sem a iniciativa em SST e com a iniciativa em SST. Exemplificando, o benefício gerado pela redução de absenteísmo $B_{abs}$ será calculado a partir da seguinte equação.
+
+$$B_i = {D}_{i, ci} - {D}_{i, si}$$
+Exemplificando, se uma empresa, sem uma iniciativa em SST terá $20000$ reais em desepesas com absenteísmo, e com esta iniciativa terá $15000$, o benefício oriúndo desta inciativa, apenas relacionado a absenteísmo será:
+
+$$B_{abs} = {D}_{abs, ci} - {D}_{abs, si} = (-15000)-(-20000) = 5000$$
+
+#### Despesas com Absenteísmo
+As despesas com Absenteísmo $D_{abs}$ serão calculadas com base no número de dias de absenteísmo por problemas relacionados à SST $d_{abs}$, no número de horas trabalhadas por dia $h$ e no custo em mão de obra médio horário $c_{mdo}$.
+
+$$D_{abs} = d_{abs} * h * c_{mdo}$$
+
+#### Despesas com Turnover
+As despesas com Turnover $D_{tur}$ serão calculadas com base no número de funcionários afastados por problemas relacionados à SST $n_{afast}$ e no custo médio de substituição dos funcionários$c_{sub}$.
+
+$$D_{tur} = n_{afast} * c_{sub}$$
+#### FAP, RAT e SAT
+As despesas com seguro acidentário do trabalho $D_{sat}$ serão calculadas de acordo com as estimativas do ${FAP}$ ($0,005 - 0,02$) e ${RAT}$ .

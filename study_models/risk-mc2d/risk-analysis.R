@@ -1,16 +1,17 @@
-#' Análise de Risco  (Imitando um modelo simples com Amostragem LHS)
+#' Análise de Risco  (Utilizando o Pacote MC2D)
 #' ========================================================
 #' Esta Análise simula 1000 casos usando distribuições uniformes.
 #' A mesma análise foi realizada com o @Risk para a comparação dos resultados.
 #' 
 #' 
 # Bibliotecas que vou usar
-library(lhs)
+library(mc2d)
 library(ggplot2)
+library(lhs)
 
 
 # Setando a seed para o mesmo valor usado pelo @Risk
-set.seed(2000)
+# set.seed(2000)
 
 #Definindo Meu Modelo
 lucro = function(CustoFixo, CustoVariavel, Preco, Producao, Demanda) {
@@ -19,10 +20,19 @@ lucro = function(CustoFixo, CustoVariavel, Preco, Producao, Demanda) {
 }
 
 
+simular_mc2d = function(CustoFixo, CustoVariavel, Preco, Producao, Demanda){
+  CustoVariavel = mcstoc(runif,min=CustoVariavelMinimo,max=CustoVariavelMaximo)
+  Preco = mcstoc(runif,min=PrecoMinimo,max=PrecoMaximo)
+  Demanda = mcstoc(runif,min=DemandaMinima,max=DemandaMaxima)
+  Lucro = lucro(CustoFixo, CustoVariavel, Preco, Producao, Demanda)
+  resultadomc = mc(CustoVariavel,Preco,Demanda,Lucro)
+  return (resultadomc)
+}
 
-#Rodando a Análise
 
-simular = function(CustoFixo, CustoVariavel, Preco, Producao, Demanda, iteracoes, variaveisAleatorias, VariaveisNoEnsemble) {
+#Rodando a Análise (Método Antigo com o LHS)
+
+simular_lhs = function(CustoFixo, CustoVariavel, Preco, Producao, Demanda, iteracoes, variaveisAleatorias, VariaveisNoEnsemble) {
   # Obtendo uma amostra LHS de 1000 pontos
   amostra_lhs = randomLHS(iteracoes,variaveisAleatorias,preserveDraw = TRUE)
   

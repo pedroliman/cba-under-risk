@@ -1,0 +1,11 @@
+name: risk-mc2d
+title: risk-mc2d
+account: pedrolima
+server: shinyapps.io
+appId: 187104
+bundleId: 857312
+url: https://pedrolima.shinyapps.io/risk-mc2d/
+when: 1496864717.3306
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: test.R

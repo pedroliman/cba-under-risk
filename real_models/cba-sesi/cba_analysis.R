@@ -1,6 +1,6 @@
 
 # Análise de Custo Benefício
-
+library(roxygen2)
 library(fitdistrplus)
 
 set.seed(1500)
@@ -30,6 +30,7 @@ cba_replications = replicate(n=100,
                                           sd_benefit=10)
                              )
 
+a=cba_analysis()
 
 # Separando os resultados em vetores diferentes
 # vendo o VPL

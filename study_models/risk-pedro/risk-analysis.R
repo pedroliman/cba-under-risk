@@ -18,8 +18,6 @@ lucro = function(CustoFixo, CustoVariavel, Preco, Producao, Demanda) {
   return(lucro)
 }
 
-
-
 #Rodando a Análise
 
 simular = function(CustoFixo, CustoVariavel, Preco, Producao, Demanda, iteracoes, variaveisAleatorias, VariaveisNoEnsemble) {
@@ -51,7 +49,3 @@ simular = function(CustoFixo, CustoVariavel, Preco, Producao, Demanda, iteracoes
   
   return(dados_simulados)
 }
-
-
-
-

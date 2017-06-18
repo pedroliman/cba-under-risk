@@ -1,9 +1,20 @@
-
+library(roxygen2)
 ### Pedro Nascimento de Lima
 ### Arquivo com a Função de Análise CBA
 
 
 ### Função CBA ANALYSIS ####
+#' Find column name corresponding to a particular functional
+#'
+#' The original data set contains very long column headers. This function
+#' does a keyword search over the headers to find those column headers that
+#' match a particular keyword, e.g., mean, median, etc.
+#' @param mean_cost A média dos custos da CBA (número)
+#' @param sd_cost O desvio Padrão dos custos (número)
+#' @param mean_benefit Média do Benefício da CBA (número)
+#' @param sd_beneft O desvio Padrão dos Benefícios (número)
+#' @return Vetor de índices da CBA (vetor)
+#' @export
 cba_analysis = function(mean_cost, sd_cost, mean_benefit, sd_benefit) {
   
 

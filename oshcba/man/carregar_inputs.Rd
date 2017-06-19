@@ -10,7 +10,7 @@ carregar_inputs(arquivo_de_inputs)
 \item{arquivo_de_inputs}{Planilha do Excel Padronizada contendo Inputs do Modelo}
 }
 \description{
-Esta função carrega dados que ser?o usados como Input.
+Esta funÃ§Ã£o carrega dados que ser?o usados como Input.
 }
 \examples{
 carregar_inputs ("Planilha_de_Inputs.xlsx")

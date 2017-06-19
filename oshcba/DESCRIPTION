@@ -6,7 +6,7 @@ Author: Pedro Nascimento de Lima
 Maintainer: Pedro N. de Lima <pedrolima.n@gmail.com>
 Description: Analise de Custos e Benefícios em SST usando simulacao Monte Carlo.
 License: What license is it under?
-Encoding: UTF-8
+Encoding: ISO-8859-1
 LazyData: true
 RoxygenNote: 6.0.1
 Imports:
